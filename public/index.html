@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Regulation</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="src/input.js"></script>
+</head>
+<body  >
+   <div class="container">
+    <nav class="nav">
+        <h1 class="title">Air Monitoring sytstem </h1>
+        <div style="display: flex; gap: 5px;">
+            <div > 
+                <span class="light" id="statusLight"></span>
+                <span id="statusMsg"></span>
+            </div>
+            <div class="reconnect">
+                <svg width="15px" height="15px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#fff" d="M14.9547098,7.98576084 L15.0711,7.99552 C15.6179,8.07328 15.9981,8.57957 15.9204,9.12636 C15.6826,10.7983 14.9218,12.3522 13.747,13.5654 C12.5721,14.7785 11.0435,15.5888 9.37999,15.8801 C7.7165,16.1714 6.00349,15.9288 4.48631,15.187 C3.77335,14.8385 3.12082,14.3881 2.5472,13.8537 L1.70711,14.6938 C1.07714,15.3238 3.55271368e-15,14.8776 3.55271368e-15,13.9867 L3.55271368e-15,9.99998 L3.98673,9.99998 C4.87763,9.99998 5.3238,11.0771 4.69383,11.7071 L3.9626,12.4383 C4.38006,12.8181 4.85153,13.1394 5.36475,13.3903 C6.50264,13.9466 7.78739,14.1285 9.03501,13.9101 C10.2826,13.6916 11.4291,13.0839 12.3102,12.174 C13.1914,11.2641 13.762,10.0988 13.9403,8.84476 C14.0181,8.29798 14.5244,7.91776 15.0711,7.99552 L14.9547098,7.98576084 Z M11.5137,0.812976 C12.2279,1.16215 12.8814,1.61349 13.4558,2.14905 L14.2929,1.31193 C14.9229,0.681961 16,1.12813 16,2.01904 L16,6.00001 L12.019,6.00001 C11.1281,6.00001 10.6819,4.92287 11.3119,4.29291 L12.0404,3.56441 C11.6222,3.18346 11.1497,2.86125 10.6353,2.60973 C9.49736,2.05342 8.21261,1.87146 6.96499,2.08994 C5.71737,2.30841 4.57089,2.91611 3.68976,3.82599 C2.80862,4.73586 2.23802,5.90125 2.05969,7.15524 C1.98193,7.70202 1.47564,8.08224 0.928858,8.00448 C0.382075,7.92672 0.00185585,7.42043 0.0796146,6.87364 C0.31739,5.20166 1.07818,3.64782 2.25303,2.43465 C3.42788,1.22148 4.95652,0.411217 6.62001,0.119916 C8.2835,-0.171384 9.99651,0.0712178 11.5137,0.812976 Z"/>
+                </svg>
+            </div>
+        </div>
+    </nav>
+        <div class="results card">
+            <h3>Near Real time </h3>
+            <div class="dataname">
+                <span class="char">Air Humidity     </span>
+                <span class="hum"></span>
+                <span>%</span>
+            </div>
+
+            <div class="dataname">
+                <span class="char">Air Temperature  </span>
+                <span class="temp"></span>
+                <span>°C</span>
+            </div>
+
+            <div class="dataname">
+                <span class="char">Heat Index      </span>
+                <span class="index"></span>
+                <span>°C</span>
+            </div>
+
+        </div>
+        <!-- graph  -->
+        <div class="graph card ">
+            <h3>Graph</h3>
+            <div id="graph"></div>
+
+        </div>
+        <!-- state -->
+
+        <div class="roomcontrol card fanoff  ">
+            <h2>Room control</h3>
+
+            <div class="mode components">
+                <p>MODE</p>
+                <div class="toggle">
+                    <div class="toggle-button" role="button"></div>
+                </div>
+                <div class="text"></div>
+                
+            </div>
+                
+            <div class="noactionParent">
+
+                <div class="components">
+    
+                    <div class="window-wraper">
+                        <img class="openWindowImg" src="img/open-window.png" alt="img" width="40px">
+                        <img class="closeWindowImg" src="img/closedWindow.png" alt="img" width="40px" height="30px">
+                    </div>
+                      
+                    <button id="openWindowBtn">open window</button>
+                    <button id="closeWindowBtn">close window</button>
+                    
+                </div>
+                <div class="components">
+                    <svg  class="fansvg" width="40px" height="40px" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12,11a1,1,0,1,0,1,1,1,1,0,0,0-1-1m.5-9C17,2,17.1,5.57,14.73,6.75a3.36,3.36,0,0,0-1.62,2.47,3.17,3.17,0,0,1,1.23.91C18,8.13,22,8.92,22,12.5c0,4.5-3.58,4.6-4.75,2.23a3.44,3.44,0,0,0-2.5-1.62,3.24,3.24,0,0,1-.91,1.23c2,3.69,1.2,7.66-2.38,7.66C7,22,6.89,18.42,9.26,17.24a3.46,3.46,0,0,0,1.62-2.45,3,3,0,0,1-1.25-.92C5.94,15.85,2,15.07,2,11.5,2,7,5.54,6.89,6.72,9.26A3.39,3.39,0,0,0,9.2,10.87a2.91,2.91,0,0,1,.92-1.22C8.13,6,8.92,2,12.48,2Z"/>
+                      </svg>
+                    <button id="fanon">fan on</button>
+                    <button id="fanoff">fan off</button>
+                    
+                </div>
+    
+                <div class="noaction"></div>
+                
+            </div>
+
+            <div class="components">
+                <button id="save">
+                    save set temp
+                </button>
+            </div>
+        </div>
+   </div>
+</body>
+<script src="d3.v7.js" ></script>
+<script src="graphs.js" defer type="module"></script>
+<script src="index.js" defer type="module"></script>
+<script src="mobile.js" type="module" defer></script>
+</html>

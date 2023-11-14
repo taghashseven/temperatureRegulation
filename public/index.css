@@ -1,0 +1,449 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}   
+
+body {
+    color: white ;
+    /* background-image: url('img/cover.jpg'); */
+    background-size: cover  ;
+    mix-blend-mode: multiply;
+    background-repeat: no-repeat;
+    background-position: center;
+} 
+
+.nav {
+    background-color: rgb(15, 12, 12);
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 5px;
+    align-items: center;
+    grid-column: span 2; 
+    align-content: center;
+}
+
+
+
+@keyframes flash {
+    0% {
+        opacity: 0;
+    }
+    20% , 80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+.light {
+    display: inline-block;
+    width: 1rem;
+    height : 1rem;
+    border-radius: 50%;
+    /* glow effect on dot */
+    box-shadow: 0px 0px 5px 0px rgba(255, 255, 255, 0.5);
+    /* flash */
+    animation: flash 5s linear infinite;
+    background-color: red;
+
+}
+
+[data-online] .light {
+    background-color: green;
+}
+
+#statusMsg::before {
+    content: "offline";
+}
+
+[data-online] #statusMsg::before {
+    content: "online";
+}
+
+.reconnect {
+    display: inline-block;
+}
+
+[data-online] .reconnect {
+    display: none;
+}
+
+
+
+.container {
+    background-color: rgba(0, 0, 0, 0.897);
+    height: 100vh ; 
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    grid-template-rows: max-content auto auto;
+}
+
+
+
+.card {
+    margin: 0.4rem ;
+    /* background-color: hsla(33, 82%, 2%, 0.815); */
+    padding: 0.4rem ;
+    border-radius: 0.2rem ;
+    background-color: rgb(15, 12, 12);
+}
+
+.title {
+    margin-bottom: 1rem;
+}
+
+.results h3 {
+    margin-bottom: 1rem;
+    border-bottom: 2px solid white;
+}
+.results {
+
+    min-height: 100px;
+
+}
+
+.results :nth-child(2n){
+    background-color: rgb(20, 20, 20);
+}
+
+
+
+.dataname {
+    font-size: large;
+    padding: 5px 0px;
+}
+
+.results div {
+    margin: 0.4rem ;
+}
+
+
+.roomcontrol {
+    background-color: rgb(15, 12, 12);
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.roomcontrol h2 {
+    border-bottom: 2px solid white;
+
+}
+
+.mode {
+    display: flex;
+}
+
+.toggle {
+    background-color: rgb(2, 107, 84);
+    position: relative;
+    width: 50px;
+    height : 27px ;
+    margin-left: 1rem ;
+    border-radius: 16px;
+}
+
+[data-manual] .toggle {
+    background-color: rgb(151, 151, 170);
+}
+
+.toggle .toggle-button {
+    position: absolute;
+    width: 25px;
+    height: 23px;
+    border-radius: 50%;
+    background-color: rgb(5, 5, 51);
+    margin: 2px 2px ;
+}
+
+[data-manual] .toggle .toggle-button {
+    background-color: rgb(75, 5, 8);
+    transform: translateX(20px);
+
+}
+
+.text {
+    margin-left: 0.3rem;
+}
+
+.text::before {
+    content: "auto";
+}
+
+[data-manual] .text::before {
+    content: "manual";
+}
+
+[data-pending] .text::before {
+    content: "pending"  !important;
+}
+
+[pending] .toggle-button {
+    /* move the ball side ways */
+    animation-name: pending;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    background-color: rgb(22, 2, 2);
+}
+
+@keyframes pending {
+    from {
+        transform: translateX(0px);
+    }
+    to {
+        transform: translateX(20px);
+    }
+}
+
+[data-fanon]  .fansvg {
+    animation: spinfan 2s linear infinite;
+}
+
+@keyframes spinfan {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#fanon {
+    display: inline-block;
+}
+
+#fanoff {
+    display: none;
+}
+
+[data-fanon] #fanon {
+    display: none;
+}
+
+[data-fanon] #fanoff {
+    display: inline-block;
+}
+
+
+/* window */
+
+#openWindowBtn , [data-windowon] #closeWindowBtn {
+    display: inline-block;
+}
+
+[data-windowon] #openWindowBtn  , #closeWindowBtn {
+    display: none;
+}
+
+[data-windowon] .openWindowImg , .closeWindowImg {
+    display: inline-block;
+}
+
+[data-windowon] .closeWindowImg , .openWindowImg {
+    display: none;
+}
+
+
+
+.graph {
+    grid-row: span 2;
+    display: flex   ;
+    flex-direction: column;
+}
+
+#graph {
+    display: flex;
+    width: auto;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+.noactionParent {
+    position: relative;
+}
+
+body:not([data-manual]) .roomcontrol:hover .noaction {
+    position: absolute;
+    top : 0px;
+    left: 0px ;
+    right: 0px ;
+    bottom: 0px ;
+    background-color: gray ;
+    opacity: 0.5;
+    border-radius: 10px;
+
+}
+    
+
+body:not([data-manual]) .roomcontrol:hover  .noaction::before {
+    content: 'x';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10ch;
+    transform: translateX(-5ch);
+    text-align: center;
+    font-size: 2rem;
+
+} */
+
+
+
+/* 
+* slider css
+*/
+
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+  }
+  
+  /* The slider itself */
+  .slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 15px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+  }
+  
+  /* Mouse-over effects */
+  .slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+  
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 15px ;/* Set a specific slider handle width */
+    height: 15px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 7px;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 15px; /* Set a specific slider handle width */
+    height: 15px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 7px;
+  }
+
+
+
+  /*             room control                                   */
+
+  
+/* tool tip on hover .reconnect */
+.reconnect:hover::before{
+    content: "Reconnect";
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: small;
+    font-weight: bold;
+    top: 0px;
+    left: 0px;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.5s ease-in-out;
+
+}
+
+.components {
+    margin: 10px 5px ;
+    background-color: rgba(17, 12, 12, 0.863);
+    padding: 5px;
+    box-shadow: 2px 2px 2px rgb(4, 2, 27) ;
+    display:  flex;
+    align-items: center;
+}
+
+
+
+.components > button {
+    background-color: black;
+    color: white;
+    outline: none;
+    box-shadow: 2px  rgb(17, 16, 16);
+    border: none;
+    padding: 5px ;
+    margin: 3px ;
+    border-radius: 5px;
+}
+.char {
+    width: 20ch;
+    display: inline-block;
+}
+
+
+/* at me */
+
+
+
+
+.modebtn {
+    background-color: green;
+    outline: none;
+    border : 0px; 
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(7, 138, 7, 0.774);
+}
+
+
+button:active {
+    transform: scale(1.1);
+}
+
+
+.closedWindow {
+    display: inline-block;
+}
+
+[data-windowon] .closedWindow {
+    display: none;
+}
+
+.openWindow {
+    display: none;
+}
+
+[data-windowon] .openWindow {
+    display: inline-block;
+}
+
+.tempReg {
+    display: grid;
+    grid-template-columns: 1fr  1fr;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgb(4, 2, 27) ;
+}
+
+.tempReg label {
+    display: inline-block;
+    width: 12ch;
+    outline:  none;
+}
+
+.tempReg div {
+    margin: 2px ;
+}
