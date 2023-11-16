@@ -79,6 +79,8 @@ const wss = new WebSocketServer({ port: 3001 });
     
     wss.on('connection', function connection(ws) {
 
+        console.log('client connectd!')
+
         ws.on('error', console.error);
 
       
@@ -152,11 +154,13 @@ const wss = new WebSocketServer({ port: 3001 });
                     })
 
                     // add a timestamp
-                    dataObj.timestamp = new Date()
-                    console.log(dataObj.timestamp)
+                    dataObj.timestamp = Date.now()
+                    dataObj.time = new Date()
                     if (type == 'data'){
                         dataObj.saved = false
+                        
                         filedata = {...dataObj}
+                        delete filedata.timestamp
                     }
                     serialport.emit('arduinoData', {type, payload: dataObj})
                     return ;

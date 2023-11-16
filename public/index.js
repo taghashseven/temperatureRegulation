@@ -149,6 +149,7 @@ closeWindow.addEventListener('click', () => {
 
 
 saveBtn.addEventListener('click', () => {
+    body.classList.remove('savePresets')
     console.log(presets)
     // float to int 
     socket.send(`set;${parseInt(presets.fanOn)};${parseInt(presets.fanOff)};${parseInt(presets.winOn)};${parseInt(presets.winOff)}`)

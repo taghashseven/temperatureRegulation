@@ -447,3 +447,13 @@ button:active {
 .tempReg div {
     margin: 2px ;
 }
+
+.savePresets #save {
+    background-color: red;
+    visibility: visible;
+}
+
+#save {
+    /* display: invisible; */
+    visibility: hidden;
+}

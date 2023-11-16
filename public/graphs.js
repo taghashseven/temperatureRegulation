@@ -4,6 +4,8 @@ const width = 600 - margin.left - margin.right;
 const height = 400 - margin.top - margin.bottom;
 const min = 18 
 const max = 36
+let  amin = 18
+let  amax = 36
 const body = document.querySelector('body')
 const presets = {
   isSet : false , 
@@ -215,7 +217,7 @@ const xAxis = svg.append("g")
 .call(d3.axisBottom(x));
 
 // y axis
-svg.append("g")
+const yAxis = svg.append("g")
 .call(d3.axisLeft(y));
 
 
@@ -225,7 +227,10 @@ const tempLine = d3.line()
 .x((d,i) => x(d.timestamp))
 .y(d => y(d.Temperature))
 
-
+// c temp 
+const cTempLine = d3.line()
+.x((d) => x(d.timestamp))
+.y(d => y(d.Heat_Index))
 
 
 const line=  svg.append('path')
@@ -235,6 +240,15 @@ const line=  svg.append('path')
 .style('stroke-width' , '2px')
 .style('stroke' , 'blue')
 
+// c line 
+const cline=  svg.append('path')
+.datum(reads)
+.attr('d' , cTempLine)
+.style('fill', 'none')
+.style('stroke-width' , '2px')
+.style('stroke' , 'red')
+
+
 
 // helper functions 
 // update the x axis
@@ -242,6 +256,30 @@ const updateX = () => {
     
     // transition on xAxis 
     x.domain(d3.extent(reads, d => new Date(d.timestamp)))
+
+    let tempMax = d3.max(reads , d => d.Temperature)
+      let indexMax = d3.max(reads , d => d.Heat_Index)
+      amax = Math.max(tempMax , indexMax)
+    // if temp is above max , change the domain 
+    if(amax > max){
+      
+      y.domain([min , amax])
+
+      yAxis.transition()
+      .duration(1000)
+      .call(d3.axisLeft(y))
+    }
+
+
+    // if temp is below min , change the domain
+    if(d3.min(reads , d => d.Temperature) < min){
+      y.domain([d3.min(reads , d => d.Temperature) , max])
+
+      yAxis.transition()
+      .duration(1000)
+      .call(d3.axisLeft(y))
+
+    }
 
     xAxis.transition()
     .duration(1000)
@@ -279,6 +317,11 @@ const updateX = () => {
       line.transition()
         .duration(1000)
         .attr('d' , tempLine)
+
+      
+      cline.transition()
+        .duration(1000)
+        .attr('d' , cTempLine)
 
 
 
